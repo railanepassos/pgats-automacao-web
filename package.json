@@ -1,0 +1,16 @@
+{
+  "name": "pgats-automacao-web",
+  "version": "1.0.0",
+  "scripts": {
+    "cy:open": "cypress open",
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "report:clean": "rm -rf cypress/reports cypress/screenshots"
+  },
+  "description": "Trabalho de conclusão - Automação de Testes na Camada de Interface (Web) - PGATS Turma 3",
+  "devDependencies": {
+    "cypress": "^13.17.0",
+    "cypress-mochawesome-reporter": "^5.0.0"
+  },
+  "private": true
+}
