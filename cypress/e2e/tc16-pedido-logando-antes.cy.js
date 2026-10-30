@@ -10,7 +10,12 @@ describe('Caso 16 - Fazer pedido: logar antes do checkout', () => {
     cy.criarUsuarioPorApi().then((u) => (usuario = u));
   });
 
-  it('loga, compra um produto e apaga a conta', () => {
+  // Limpeza garantida mesmo se o teste falhar no meio.
+  afterEach(() => {
+    cy.apagarUsuarioPorApi(usuario);
+  });
+
+  it('loga e compra um produto', () => {
     cy.fixture('pagamento').then((pagamento) => {
       HomePage.abrir().verificarVisivel().irParaLogin();
       LoginPage.logar(usuario.email, usuario.password);
@@ -21,8 +26,6 @@ describe('Caso 16 - Fazer pedido: logar antes do checkout', () => {
       PedidoPage.verificarCarrinho().irParaCheckout().verificarEnderecoERevisao();
       PedidoPage.finalizarPedido('Pedido de teste automatizado').pagar(pagamento);
       PedidoPage.verificarPedidoConfirmado();
-
-      HomePage.apagarConta();
     });
   });
 });

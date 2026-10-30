@@ -8,9 +8,14 @@ describe('Caso 2 - Login com e-mail e senha corretos', () => {
     cy.criarUsuarioPorApi().then((u) => (usuario = u));
   });
 
-  it('loga com credenciais válidas e apaga a conta', () => {
+  // Limpeza garantida mesmo se o teste falhar no meio.
+  afterEach(() => {
+    cy.apagarUsuarioPorApi(usuario);
+  });
+
+  it('loga com credenciais válidas', () => {
     HomePage.abrir().verificarVisivel().irParaLogin();
     LoginPage.verificarFormularioLogin().logar(usuario.email, usuario.password);
-    HomePage.verificarLogadoComo(usuario.name).apagarConta();
+    HomePage.verificarLogadoComo(usuario.name);
   });
 });
